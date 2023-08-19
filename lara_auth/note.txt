@@ -1,0 +1,29 @@
+//**************bootstrap installation******************//
+
+terminal command----------
+composer require laravel/ui
+php artisan ui bootstrap --auth
+php artisan ser
+
+//**************bootstrap installation******************//
+--------vite.config.js------
+
+import path from 'path';
+
+   resolve: {
+        alias: {
+             '~bootstrap':path.relative(__dirname,'node_modules/bootstrap'),
+        },
+    },
+
+
+    npm i
+
+    resource->js->app.js
+    import '../sass/app.scss'
+
+
+//***********************************************************//
+resource->sass->app.scss
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
