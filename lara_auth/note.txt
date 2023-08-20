@@ -10,9 +10,9 @@ php artisan ser
 
 import path from 'path';
 
-   resolve: {
+  resolve: {
         alias: {
-             '~bootstrap':path.relative(__dirname,'node_modules/bootstrap'),
+             '~bootstrap':path.resolve(__dirname,'node_modules/bootstrap'),
         },
     },
 
