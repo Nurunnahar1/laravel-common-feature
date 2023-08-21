@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\CustomAuth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterController extends Controller
 {
@@ -12,6 +15,25 @@ class RegisterController extends Controller
     }
 
     function registerUser(Request $request){
-        dd($request->all());
+
+        //user validations
+
+        $request->validate([
+            'name' =>'bail|required|string|max:255' ,
+            'email'=>'bail|required|string|email|max:255|unique:users',
+            'phone' =>'bail|required|string',
+            'password'=>['bail','required','string','confirmed',Password::min(4)->mixedCase()]
+               ]);
+
+//user creation
+        User::create([
+            'name' =>$request->name,
+            'email' =>$request->email,
+            'password' =>Hash::make($request->password),
+            'phone'=>$request->phone
+        ]);
     }
+
+
+
 }
