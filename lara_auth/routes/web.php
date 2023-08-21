@@ -24,3 +24,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/register',[RegisterController::class,'registerFormShow'])->name('register');
 Route::post('/register',[RegisterController::class,'registerUser'])->name('register.store');
+Route::post('/logout',[RegisterController::class,'logout'])->name('logout');

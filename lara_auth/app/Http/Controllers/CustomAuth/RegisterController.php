@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CustomAuth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -32,6 +33,24 @@ class RegisterController extends Controller
             'password' =>Hash::make($request->password),
             'phone'=>$request->phone
         ]);
+        //make a credential array
+        $credentials=[
+            'email' =>$request->email,
+            'password' =>$request->password,
+        ];
+        //login attempt if successful then redirect home
+        if(Auth::attempt($credentials)){
+            $request->session()->regenerate();
+            return redirect()->intended('home');
+        }
+        //return error message
+        return back()->withErrors([
+            'email'=>'Wrong credentials!!!'
+        ])->onlyInput('email');
+    }
+
+    function logout(){
+        
     }
 
 
