@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomAuth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuth\RegisterController;
@@ -25,3 +26,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/register',[RegisterController::class,'registerFormShow'])->name('register');
 Route::post('/register',[RegisterController::class,'registerUser'])->name('register.store');
 Route::post('/logout',[RegisterController::class,'logout'])->name('logout');
+
+
+
+Route::get('/login',[LoginController::class,'loginFormShow'])->name('login');
+Route::post('/login',[LoginController::class,'loginUser'])->name('login.store');
+
