@@ -49,9 +49,7 @@ class RegisterController extends Controller
         ])->onlyInput('email');
     }
 
-    function logout(){
-        
-    }
+    
 
 
 
