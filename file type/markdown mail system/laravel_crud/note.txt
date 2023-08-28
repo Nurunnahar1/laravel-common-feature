@@ -1,0 +1,20 @@
+************************ 1 *********************
+php artisan make:model Product(with seeder , migration, factory)
+
+
+
+Product taable
+    public function up(): void
+    {
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
+            $table->foreignId('subcategory_id')->constrained('sub_categories')->cascadeOnDelete();
+            $table->string('name');
+            $table->string('slug');
+            $table->longText('description');
+            $table->unsignedInteger('price')->default(0);
+            $table->string('image')->nullable();
+            $table->timestamps();
+        });
+    }
