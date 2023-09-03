@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>Laravel Ecom |@yield('title')</title>
     <meta name="description" content="Ecommerce Dashboard" />
+    
 
     @include('backend.layouts.inc.style')
 

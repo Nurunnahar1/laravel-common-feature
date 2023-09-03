@@ -22,10 +22,15 @@
     <meta name="msapplication-square310x310logo" content="{{ asset('assets/backend') }}/img/favicon/mstile-310x310.png" />
     <!-- Favicon Tags End -->
     <!-- Font Tags Start -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="{{ asset('https://fonts.gstatic.com') }}" />
+    <link href="{{ asset('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap') }}" rel="stylesheet" />
+    <link href="{{ asset('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/backend') }}/font/CS-Interface/style.css" />
+    <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css') }} " />
+//toastr
+<link rel="stylesheet" href="{{ asset('http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css') }}">
+
+
     <!-- Font Tags End -->
     <!-- Vendor Styles Start -->
     <link rel="stylesheet" href="{{ asset('assets/backend') }}/css/vendor/bootstrap.min.css" />

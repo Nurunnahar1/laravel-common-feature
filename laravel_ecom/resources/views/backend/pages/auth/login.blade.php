@@ -57,9 +57,9 @@
 
 
                                                     <div class="pt-1 mb-4">
-                                                        {{-- <button class="btn btn-dark btn-lg btn-block" type="button">Login</button> --}}
-                                                        <a href="{{ route('admin.dashboard') }}">Login</a>
-
+                                                      <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+                                                        {{-- <a href="{{ route('admin.dashboard') }}">Login</a> --}}
+                                                        {{-- <button type="submit" class="btn btn-danger  btn-lg btn-block">Login</button> --}}
 
                                                 </form>
 
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </section>
-   
+
 </body>
 </html>
 

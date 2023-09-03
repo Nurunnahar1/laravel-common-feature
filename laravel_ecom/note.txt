@@ -1,0 +1,113 @@
+php artisan make:controller Backend/CategoryController -r
+
+Route::resource('category',CategoryController::class);
+php artisan make:model
+
+seed,factory,requests,migration
+
+
+**********category table************
+
+  Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('slug');
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+********************category model***************
+
+        class Category extends Model
+{
+    use HasFactory, SoftDeletes;
+    protected $guarded = ['id'];
+}
+
+
+***********************category factory**************************
+        $title = $this->faker->title;
+        $slug = Str::slug($title);
+        return [
+            'title'=>$title,
+            'slug'=>$slug
+        ];
+
+************************category seeder**************************
+
+    public function run(): void
+    {
+        $demoz_category = [
+            'Honey',
+            'Natural oil',
+            'Nuts',
+            'Coconut',
+            'Butter',
+        ];
+
+        foreach ($demoz_category as $value){
+            Category::create([
+                'title'=>$value,
+                'slug'=>Str::slug($value)
+            ]);
+        }
+    }
+
+    *********************datebase seeder*******************
+       $this->call([
+            UserSeeder::class,
+            CategorySeeder::class
+        ]);
+
+
+php artisan migrate:fresh --seed
+
+
+*********************add toastr******************
+
+google->toastr laravel ( brian2694/laravel-toastr)
+composer require brian2694/laravel-toastr
+php artisan vendor:publish
+
+
+
+
+***********************sweet alert*************************
+
+google->sweetalert2   (github)
+<script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11') }}"></script>
+
+
+<script>
+    $(document).ready(function(){
+
+
+     $('.show_confirm').click(function(event){   //this line
+        let form = $(this).closest('form');  //this line
+        event.preventDefault();  //this line
+
+
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); //this line
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+                })
+     });
+ });
+
+
+</script>

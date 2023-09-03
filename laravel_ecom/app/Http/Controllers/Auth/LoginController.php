@@ -10,29 +10,24 @@ class LoginController extends Controller
 {
     public function loginPage(){
         return view('backend.pages.auth.login');
-    }
-    public function login(Request $request){
+    }    function login(Request $request){
         $validated = $request->validate([
             'email'=>'required|email',
-            'password'=>'required|string|min:4'
+            'password'=>'required|string|min:4',
         ]);
 
         $credentials = [
-            'email'=>$request->email,
-            'password'=>$request->password,
-
+            'email' => $request->email,
+            'password' => $request->password
         ];
 
-        //login attempt if success then redirect dashboard
-        if(Auth::attempt($credentials, $request->filled('remember'))){
+        if(Auth::attempt($credentials,$request->filled('remember'))){
             $request->session()->regenerate();
-            return redirect()->intended('admin/dashboard');
+            return redirect()->intended('admin.dashboard');
         }
-
-        //return error message
         return back()->withErrors([
-            'email'=>'Wrong Credentials found!'
-        ])->onlyInput('email');
+            'email'=>'wrong password or email'
+        ]);
     }
 
     public function logout(Request $request){

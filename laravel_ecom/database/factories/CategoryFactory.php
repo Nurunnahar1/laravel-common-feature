@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->title;
-            $slug = Str::slug($title);
+        $slug = Str::slug($title);
         return [
             'title'=>$title,
             'slug'=>$slug
