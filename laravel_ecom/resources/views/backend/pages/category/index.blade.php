@@ -27,6 +27,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Image</th>
                         <th scope="col">Last Modified</th>
                         <th scope="col">Category Name</th>
                         <th scope="col">Category Slug</th>
@@ -37,15 +38,11 @@
                     @foreach ($categories as $category)
                         <tr>
                             <th scope="row">{{ $categories->firstItem()+$loop->index }}</th>
+                            <th><img src="{{ asset('uploads/category') }}/{{ $category->category_image}}" alt="" class="img-fluid rounded  h-400  w-50 "></th>
                             <td>{{ $category->updated_at->format('d M Y') }}</td>
                             <td>{{ $category->title }}</td>
                             <td>{{ $category->slug }}</td>
                             <td>
-
-
-
-
-
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Setting
@@ -67,18 +64,6 @@
                                     </li>
                                     </ul>
                                   </div>
-
-
-
-
-
-
-
-
-
-
-
-
                             </td>
                         </tr>
                     @endforeach

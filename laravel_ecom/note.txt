@@ -445,3 +445,75 @@ class TestimonialController extends Controller
 
 ***************************************************
 php artisan make:controller Frontend/HomeController
+
+<?php
+
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Testimonial;
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    function home(){
+        $testimonials = Testimonial::where('is_active',1)->latest('id')->limit(3)->select(['id','client_name','client_designation','client_message','client_image'])->get();
+
+        $categories = Category::where('is_active',1)->latest('id')->limit(5)->select(['id','title','slug'])->get();
+        // return $categories;
+        // return $testimonials;
+        return view('frontend.pages.home',compact('testimonials','categories'));
+    }
+}
+
+
+
+*******************feather.blade.php***************
+
+
+    <!-- featured-area start -->
+    <div class="featured-area featured-area2">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="featured-active2 owl-carousel next-prev-style">
+                        @foreach ($categories as $category)
+
+                            <div class="featured-wrap">
+                                <div class="featured-img">
+                                    <img src="{{ asset('assets/frontend') }}/images/featured/6.jpg" alt="">
+                                    <div class="featured-content">
+                                        <a href="shop.html">{{ $category->title}}</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- featured-area end -->
+
+    **************************add coloumn*********************
+php artisan make:migration add_category_image_in_categories_table --table=categories
+
+
+   public function up(): void
+    {
+        Schema::table('categories', function (Blueprint $table) {
+            $table->string('category_image')->nullable()->default('default-image.jpg');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropColumn('category_image');
+        });
+    }
