@@ -16,7 +16,7 @@
         <h1>Category List Table</h1>
         <div class="col-12">
             <div class="d-flex justify-content-end">
-                <a href="{{ route('category.create') }}" class="btn btn-primary">
+                <a href="{{ route('products.create') }}" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i>
                     Add New Category
                 </a>
@@ -31,19 +31,28 @@
                             <th scope="col">Image</th>
                             <th scope="col">Last Modified</th>
                             <th scope="col">Category Name</th>
-                            <th scope="col">Category Slug</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Stock/Alert</th>
+                            <th scope="col">Rating</th>
                             <th scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($products as $product)
                             <tr>
-                                <th scope="row">{{ $categories->firstItem() + $loop->index }}</th>
-                                <th><img src="{{ asset('uploads/category') }}/{{ $category->category_image }}"
-                                        alt="" class="img-fluid rounded  h-100  w-50 "></th>
-                                <td>{{ $category->updated_at->format('d M Y') }}</td>
-                                <td>{{ $category->title }}</td>
-                                <td>{{ $category->slug }}</td>
+                                <th scope="row">{{ $products->firstItem() + $loop->index }}</th>
+                                {{-- <td><img src="{{ $product->product_image }}" alt=""
+                                        class="img-fluid rounded h-50 w-50 "></td> --}}
+                                        <th><img src="{{ asset('uploads/product') }}/{{ $product->product_image }}"
+                                            alt="" class="img-fluid rounded  h-100  w-50 "></th>
+                                {{-- <td></td> --}}
+                                <td>{{ $product->updated_at->format('d M Y') }}</td>
+                                <td>{{ $product->category->title }}</td>
+                                <td>{{ $product->name}}</td>
+                                <td>{{ $product->product_price }}</td>
+                                <td>{{ $product->product_stock }}/{{ $product->alert_quantity }}</td>
+                                <td>{{ $product->product_rating }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -51,12 +60,12 @@
                                             Setting
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a href="{{ route('category.edit', $category->slug) }}"
+                                            <li><a href="{{ route('products.edit', $product->slug) }}"
                                                     class="dropdown-item">
                                                     <i class="fas fa-edit"></i>Edit
                                                 </a></li>
                                             <li>
-                                                <form action="{{ route('category.destroy', $category->slug) }}"
+                                                <form action="{{ route('products.destroy', $product->slug) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -65,8 +74,8 @@
                                                 </form>
 
                                                 {{-- <a href="{{ route('category.destroy',$category->slug) }}" class="dropdown-item">
-                                            <i class="fas fa-trash"></i>Delete
-                                             </a> --}}
+                                <i class="fas fa-trash"></i>Delete
+                                 </a> --}}
                                             </li>
                                         </ul>
                                     </div>
