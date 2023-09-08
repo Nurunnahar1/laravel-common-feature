@@ -46,12 +46,12 @@
                                         class="img-fluid rounded h-50 w-50 "></td> --}}
                                         <th><img src="{{ asset('uploads/product') }}/{{ $product->product_image }}"
                                             alt="" class="img-fluid rounded  h-100  w-50 "></th>
-                                {{-- <td></td> --}}
-                                <td>{{ $product->updated_at->format('d M Y') }}</td>
+                                <td></td>
+                                {{-- <td>{{ $product->updated_at->format('d M Y') }}</td> --}}
                                 <td>{{ $product->category->title }}</td>
                                 <td>{{ $product->name}}</td>
                                 <td>{{ $product->product_price }}</td>
-                                <td>{{ $product->product_stock }}/{{ $product->alert_quantity }}</td>
+                                <td><span class="badge bg-success ">{{ $product->product_stock }}</span>/ <span class="badge bg-danger ">{{ $product->alert_quantity  }}</span></td>
                                 <td>{{ $product->product_rating }}</td>
                                 <td>
                                     <div class="dropdown">

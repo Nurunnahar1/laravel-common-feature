@@ -24,7 +24,7 @@
                     <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="mb-3">
+                        <div class=" mb-3">
                             <label for="title" class="form-label">Category Title</label>
                             <input type="text" name="title" id="title"
                                 class="form-control @error('title') is-invalid  @enderror"
