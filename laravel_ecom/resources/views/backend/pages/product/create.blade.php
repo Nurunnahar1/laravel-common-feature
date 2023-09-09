@@ -9,12 +9,11 @@
 
 @section('admin_content')
     <div class="row">
-        <h1>Category Create Form</h1>
+        <h1>Product Create Form</h1>
 
         <div class="col-12">
             <div class="d-flex justify-content-start">
-                <a href="{{ route('category.index') }}" class="btn btn-primary"><i class="fas fa-backword"></i>Back to
-                    Categories</a>
+                <a href="{{ route('products.index') }}" class="btn btn-primary"><i class="fas fa-backword"></i>Back to products</a>
             </div>
         </div>
 
@@ -25,7 +24,7 @@
                         @csrf
 
                         <div class="col-12 mb-3">
-                            <label for="category_name" class="form-label">Select Category</label>
+                            <label for="category_id" class="form-label">Select Category</label>
                              <select name="category_id" class="form-select" id="">
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->title }}</option>
@@ -38,26 +37,18 @@
                                 </span>
                             @enderror
                         </div>
+
                         <div class="col-12 mb-3">
-                            <label for="product_name" class="form-label">Product Name</label>
-                            <input type="text" name="name" class="form-control  " id="product_name">
-                            @error('product_name')
+                            <label for="name" class="form-label">Product Name</label>
+                            <input type="text" name="name" class="form-control  " id="name">
+                            @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
 
                             @enderror
                         </div>
-                        <div class="col-6 mb-3">
-                            <label for="product_code" class="form-label">Product Code</label>
-                            <input type="text" name="product_code" class="form-control @error('product_code') is-invalid   @enderror" id="product_code" placeholder="enter a unique product code">
-                            @error('product_code')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
 
-                        @enderror
-                        </div>
                         <div class="col-6 mb-3">
                             <label for="product_price" class="form-label">Product Price</label>
                             <input type="number" name="product_price" min="0" class="form-control @error('product_price') is-invalid   @enderror" id="product_price">
@@ -68,6 +59,18 @@
 
                         @enderror
                         </div>
+
+                        <div class="col-6 mb-3">
+                            <label for="product_code" class="form-label">Product Code</label>
+                            <input type="text" name="product_code" class="form-control @error('product_code') is-invalid   @enderror" id="product_code" placeholder="enter a unique product code">
+                            @error('product_code')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+
+                        @enderror
+                        </div>
+
                         <div class="col-6 mb-3">
                             <label for="product_stock" class="form-label">Initial Stock</label>
                             <input type="number" name="product_stock" min="1" class="form-control @error('product_stock') is-invalid   @enderror" id="product_stock">
@@ -78,6 +81,7 @@
 
                         @enderror
                         </div>
+
                         <div class="col-6 mb-3">
                             <label for="alert_quantity" class="form-label">Alert Quantity</label>
                             <input type="number" name="alert_quantity" min="1" class="form-control @error('alert_quantity') is-invalid   @enderror" id="alert_quantity">
@@ -120,7 +124,7 @@
                         </div>
                         <div class="col-12 mb-3">
                             <label for="product_image" class="form-label">Product Image</label>
-                            <input type="file" name="product_image"  class="form-control dropify " id="product_image" cols="30" rows="5">
+                            <input type="file" name="product_image"  class="form-control dropify " id="product_image" >
                             @error('product_image')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -131,8 +135,8 @@
 
 
                         <div class="col-6 mb-3 form-check  form-switch ">
-                            <input type="checkbox" class="form-check-input" name="is_active" role="switch" id="activeStatus" checked>
-                            <label for="activeStatus" class="form-check-label">Active or Inactive</label>
+                            <input type="checkbox" class="form-check-input" name="is_active" role="switch" id="is_active" checked>
+                            <label for="is_active" class="form-check-label">Active or Inactive</label>
                             @error('is_active')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

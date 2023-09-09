@@ -13,12 +13,12 @@
 @endpush
 @section('admin_content')
     <div class="row">
-        <h1>Category List Table</h1>
+        <h1>Product List Table</h1>
         <div class="col-12">
             <div class="d-flex justify-content-end">
                 <a href="{{ route('products.create') }}" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i>
-                    Add New Category
+                    Add New product
                 </a>
             </div>
         </div>
