@@ -11,6 +11,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -91,24 +92,81 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $slug)
     {
-        //
+        $product = Product::whereSlug($slug)->first();
+        $categories = Category::select(['id','title'])->get();
+        return view('backend.pages.product.edit',compact('product','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateProductRequest $request, $slug)
     {
-        //
+        $product = Product::whereSlug($slug)->first();
+        $product->update([
+            'category_id'=>$request->category_id ,
+            'name'=>$request->name,
+            'slug'=>Str::slug($request->name)  ,
+            'product_code'=>$request->product_code  ,
+            'product_price'=>$request->product_price ,
+            'product_stock'=>$request->product_stock ,
+            'alert_quantity'=>$request->alert_quantity ,
+            'short_description'=>$request->short_description ,
+            'long_description'=>$request->long_description ,
+            'additional_info'=>$request->additional_info ,
+        ]);
+
+        $this->image_upload($request, $product->id);
+        Toastr::success('product store successfully');
+        return redirect()->route('products.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($slug)
     {
-        //
+        // $product = Product::whereSlug($slug)->first();
+        // if($product->product_image){
+        //     // $photo_location = 'uploads/product/'.$product->product_image;
+        //     $photo_location = 'uploads/product/'.$product->product_image;
+        //     unlink($photo_location);
+        // }
+
+        // $product->delete();
+
+        // Toastr::success('product delete successfully');
+        // return redirect()->route('products.index');
+
+        
+
+            // Find the product by slug
+    $product = Product::whereSlug($slug)->first();
+
+    // Check if the product exists
+    if (!$product) {
+        Toastr::error('Product not found');
+        return redirect()->route('products.index');
+    }
+
+    // Check if the product has an associated image
+    if ($product->product_image) {
+        $photo_location = 'uploads/product/' . $product->product_image;
+
+        // Check if the file exists before attempting deletion
+        if (file_exists($photo_location)) {
+            unlink($photo_location);
+        } else {
+            Toastr::error('Image file not found');
+        }
+    }
+
+    // Delete the product
+    $product->delete();
+
+    Toastr::success('Product deleted successfully');
+    return redirect()->route('products.index');
     }
 }

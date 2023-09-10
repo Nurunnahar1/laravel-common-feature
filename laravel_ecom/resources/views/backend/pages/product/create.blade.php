@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('title')
-    Category Create
+    Product Create
 @endsection
 
 @push('admin_style')
