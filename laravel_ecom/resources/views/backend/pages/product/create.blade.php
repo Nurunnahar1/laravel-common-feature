@@ -133,6 +133,18 @@
                         @enderror
                         </div>
 
+                        {{-- product multiple Image Section --}}
+                        <div class="col-12 mb-3">
+                            <label for="product_image" class="form-label">Product Multiple Image</label>
+                            <input type="file" name="product_multiple_image[]" multiple class="form-control   " id="product_multiple_image" >
+                            @error('product_multiple_image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+
+                        @enderror
+                        </div>
+
 
                         <div class="col-6 mb-3 form-check  form-switch ">
                             <input type="checkbox" class="form-check-input" name="is_active" role="switch" id="is_active" checked>
