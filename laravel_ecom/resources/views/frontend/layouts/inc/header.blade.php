@@ -61,7 +61,7 @@
                             <li>
                                 <a href="javascript:void(0);">Shop <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
-                                    <li><a href="shop.html">Shop Page</a></li>
+                                    <li><a href="{{ route('shop.page') }}">Shop Page</a></li>
                                     <li><a href="shop-sidebar.html">Shop Sidebar</a></li>
                                     <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="cart.html">Shopping cart</a></li>
