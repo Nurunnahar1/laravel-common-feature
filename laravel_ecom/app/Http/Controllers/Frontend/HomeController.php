@@ -35,7 +35,7 @@ class HomeController extends Controller
 
 
     function productDetails($product_slug){
-        $product = Product::whereSlug($product_slug)->with('category')->first();
+        $product = Product::whereSlug($product_slug)->with('category','productImages')->first();
 
         $related_products = Product::whereNot('slug',$product->slug)->select('id','name','slug','product_price','product_image')->limit(4)->get();
         return view('frontend.pages.single-product',compact('product','related_products'));

@@ -16,7 +16,7 @@
                         </li>
                         @foreach ($categories as $category)
                         <li>
-                            <a data-toggle="tab" href="{{ $category->slug }}">{{ $category->title }}</a>
+                            <a data-toggle="tab" href="#{{ $category->slug }}">{{ $category->title }}</a>
                         </li>
                         @endforeach
 

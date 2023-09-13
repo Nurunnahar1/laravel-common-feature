@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-7 col-sm-6 col-6">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="{{ route('home') }}">
                     <img src="{{ asset('assets/frontend') }}/images/logo.png" alt="">
                     </a>
                     </div>
@@ -52,9 +52,8 @@
                             <li class="active">
                                 <a href="javascript:void(0);">Home <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
-                                    <li><a href="index.html">Home Main</a></li>
-                                    <li><a href="index2.html">Home Two</a></li>
-                                    <li><a href="index3.html">Home Three</a></li>
+                                    <li><a href="{{ route('home') }}">Home Main</a></li>
+                                     
                                 </ul>
                             </li>
                             <li><a href="about.html">About</a></li>
