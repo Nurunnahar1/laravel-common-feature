@@ -711,3 +711,13 @@ class AppServiceProvider extends ServiceProvider
 
 
 ***********************Category wise product************************
+
+
+***********************Add to cart************************
+google->shopping cart bumbummen99
+go to git
+composer require bumbummen99/shoppingcart
+
+php artisan vendor:publish --provider="Gloudemans\Shoppingcart\ShoppingcartServiceProvider" --tag="config"
+
+php artisan make:controller Frontend/CardController
