@@ -61,7 +61,7 @@
                 </li>
                 </ul>
           </li>
-         
+
           <li>
             <a href="#orders" data-href="Orders.html">
               <i data-cs-icon="cart" class="icon" data-cs-size="18"></i>
@@ -148,11 +148,12 @@
             </a>
           </li>
           <li>
-            <a href="Discount.html">
-              <i data-cs-icon="tag" class="icon" data-cs-size="18"></i>
-              <span class="label">Discount</span>
+            <a href="{{ route('cupon.index') }}">
+              <i data-cs-icon="shipping" class="icon" data-cs-size="18"></i>
+              <span class="label">Coupon Discount</span>
             </a>
           </li>
+         
           <li>
             <a href="Settings.html">
               <i data-cs-icon="gear" class="icon" data-cs-size="18"></i>
