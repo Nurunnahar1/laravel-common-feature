@@ -18,12 +18,9 @@
  <script src="{{ asset('assets/backend') }}/js/base/init.js"></script>
  <!-- Template Base Scripts End -->
 
-
-     {{-- page specific script start--}}
-     @stack('admin_script')
      //toastr
 
      <script src="{{ asset('http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js') }}"></script>
      {!! Toastr::message() !!}
-     {{-- page specific script end--}}
+
 

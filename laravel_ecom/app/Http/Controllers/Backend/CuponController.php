@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\StoreCuponRequest;
 use App\Http\Requests\UpdateCuponRequest;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CuponController extends Controller
 {
@@ -89,5 +90,11 @@ class CuponController extends Controller
         $coupon = Cupon::find($id)->delete();
         Toastr::success('coupon Delete Successfull');
         return redirect()->route('cupon.index');
+    }
+
+    function removeFromCart($cart_id){
+        Cart::remove($cart_id);
+        Toastr::info('Product Remove Successfull');
+        return back();
     }
 }

@@ -22,3 +22,6 @@
 <!-- modernizr css -->
 <script src="{{ asset('assets/frontend') }}/js/vendor/modernizr-2.8.3.min.js"></script>
 <script src="{{ asset('assets/frontend/js') }}"></script>
+
+//toastr
+<link rel="stylesheet" href="{{ asset('http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css') }}">

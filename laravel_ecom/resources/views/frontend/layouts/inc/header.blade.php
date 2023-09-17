@@ -126,40 +126,34 @@
                         <li>
                             <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>3</span></a>
                             <ul class="cart-wrap dropdown_style">
-                                <li class="cart-items">
-                                    <div class="cart-img">
-                                        <img src="{{ asset('assets/frontend') }}/images/cart/1.jpg" alt="">
-                                    </div>
-                                    <div class="cart-content">
-                                        <a href="{{ route('cart.page') }}">Pure Nature Product</a>
-                                        <span>QTY : 1</span>
-                                        <p>$35.00</p>
-                                        <i class="fa fa-times"></i>
-                                    </div>
-                                </li>
-                                <li class="cart-items">
-                                    <div class="cart-img">
-                                        <img src="{{ asset('assets/frontend') }}/images/cart/3.jpg" alt="">
-                                    </div>
-                                    <div class="cart-content">
-                                        <a href="{{ route('cart.page') }}">Pure Nature Product</a>
-                                        <span>QTY : 1</span>
-                                        <p>$35.00</p>
-                                        <i class="fa fa-times"></i>
-                                    </div>
-                                </li>
-                                <li class="cart-items">
-                                    <div class="cart-img">
-                                        <img src="{{ asset('assets/frontend') }}/images/cart/2.jpg" alt="">
-                                    </div>
-                                    <div class="cart-content">
-                                        <a href="{{ route('cart.page') }}">Pure Nature Product</a>
-                                        <span>QTY : 1</span>
-                                        <p>$35.00</p>
-                                        <i class="fa fa-times"></i>
-                                    </div>
-                                </li>
-                                <li>Subtotol: <span class="pull-right">$70.00</span></li>
+
+                                @php
+                                    $carts= \Gloudemans\Shoppingcart\Facades\Cart::content();
+                                    $total_price= \Gloudemans\Shoppingcart\Facades\Cart::subtotal();
+                                @endphp
+                                @foreach ($carts as $item)
+                                    <li class="cart-items">
+                                        <div class="cart-img">
+                                            <img src="{{ asset('uploads/product') }}/{{ $item->options->product_image }}" alt="" class="img-fluid rounded" style="width: 60px;">
+                                        </div>
+                                        <div class="cart-content">
+                                            <a href="{{ route('cart.page') }}">{{ $item->name }}</a>
+                                            <span>QTY : {{ $item->qty }}</span>
+                                            <p>${{ $item->qty*$item->price }}</p>
+
+
+                                            {{-- <a href="{{ route('removefrom.cart', ['cart_id' => $item->rowID]) }}">
+                                                <i class="fa fa-times"></i>
+                                            </a> --}}
+
+
+                                        </div>
+                                    </li>
+                                @endforeach
+
+
+
+                                <li>Subtotol: <span class="pull-right">${{ $total_price}}</span></li>
                                 <li>
                                     <button>Check Out</button>
                                 </li>

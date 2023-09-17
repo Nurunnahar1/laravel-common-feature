@@ -21,6 +21,8 @@ Route::prefix('')->group(function(){
     Route::get('/shopping-cart',[CartController::class,'cartPage'])->name('cart.page');
     Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('add-to.cart');
     // Route::get('/add-to-cart/{product_slug}',[CartController::class,'addToCart'])->name('add-to.cart');
+    Route::get('/remove-from-cart/{cart_id}', [CartController::class, 'removeFromCart'])->name('removefrom.cart');
+
 });
 
 //============ Admin Auth route==============

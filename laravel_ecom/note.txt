@@ -721,3 +721,342 @@ composer require bumbummen99/shoppingcart
 php artisan vendor:publish --provider="Gloudemans\Shoppingcart\ShoppingcartServiceProvider" --tag="config"
 
 php artisan make:controller Frontend/CardController
+
+
+**********************CardController**************************
+
+<?php
+
+namespace App\Http\Controllers\Frontend;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Gloudemans\Shoppingcart\Facades\Cart;
+
+class CartController extends Controller
+{
+    function cartPage(){
+
+     $carts= Cart::content();
+     $total_price= Cart::subtotal();
+
+    //    return $carts;
+        return view('frontend.pages.shopping-cart',compact('carts','total_price'));
+    }
+
+    function addToCart(Request $request){
+        // dd($request->all());
+        $product_slug = $request->product_slug;
+        $order_qty = $request->order_qty;
+        $product = Product::whereSlug($product_slug)->first();
+
+        Cart::add([
+            'id' => $product->id,
+            'qty' => $order_qty,
+            'name' => $product->name,
+            'price' => $product->product_price,
+            'weight' =>0,
+            'product_stock'=>$product->product_stock,
+            'options'=>[
+                'product_image'=>$product->product_image
+            ]
+        ]);
+
+        Toastr::success('Product added successfully');
+        return back();
+    }
+}
+
+
+************************shop.blade.php************************
+
+@extends('frontend.layouts.master')
+@section('frontend-title') Shop Page @endsection
+@section('frontend-content')
+
+    @include('frontend.layouts.inc.breadcumb',['pagename'=>'shop'])
+
+ <!-- product-area start -->
+ <div class="product-area pt-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="product-menu">
+                    <ul class="nav justify-content-center">
+                        <li>
+                            <a class="active" data-toggle="tab" href="#all">All product</a>
+                        </li>
+                        @foreach ($categories as $category)
+                        <li>
+                            <a data-toggle="tab" href="#{{ $category->slug }}">{{ $category->title }}</a>
+                        </li>
+                        @endforeach
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="all">
+                <ul class="row">
+                    @foreach ($allProducts as $product)
+
+                        <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                            <div class="product-wrap">
+                                <div class="product-img">
+                                    <span>Sale</span>
+                                    <img src="{{ asset('uploads/product') }}/{{ $product->product_image }}" alt="">
+                                    <div class="product-icon flex-style">
+                                        <ul>
+                                            <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="wishlist.html"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="{{ route('productdetails.page',['product_slug'=>$product->slug]) }}"><i class="fa fa-shopping-bag"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <h3><a href="{{ route('productdetails.page',['product_slug'=>$product->slug]) }}">{{ $product->name }}</a></h3>
+                                    <p class="pull-left">${{ $product->product_price }}
+
+                                    </p>
+                                    <ul class="pull-right d-flex">
+                                        @for ($i=0; $i<$product->product_rating; $i++)
+                                        <li><i class="fa fa-star"></i></li>
+                                        @endfor
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                     @endforeach
+
+
+                </ul>
+                <div class="col-12 text-center d-flex justify-content-center">
+                    <div class="py-3">
+
+                       {{ $allProducts->links() }}
+                    </div>
+               </div>
+            </div>
+            @foreach ($categories as $category)
+                <div class="tab-pane" id="{{ $category->slug }}">
+                    <ul class="row">
+                        @foreach ($category->products as $cproduct)
+                            <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                                <div class="product-wrap">
+                                    <div class="product-img">
+                                        <span>Sale</span>
+                                        <img src="{{ asset('uploads/product') }}/{{ $cproduct->product_image }}" alt="">
+                                        <div class="product-icon flex-style">
+                                            <ul>
+                                                <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
+                                                <li><a href="wishlist.html"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="{{ route('productdetails.page',['product_slug'=>$cproduct->slug]) }}"><i class="fa fa-shopping-bag"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="{{ route('productdetails.page',['product_slug'=>$cproduct->slug]) }}">{{ $cproduct->name }}</a></h3>
+                                        <p class="pull-left">${{ $cproduct->product_price }}
+
+                                        </p>
+                                        <ul class="pull-right d-flex">
+                                            @for ($i=0; $i<$cproduct->product_rating; $i++)
+                                                <li><i class="fa fa-star"></i></li>
+                                            @endfor
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+
+                    </ul>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+<!-- product-area end -->
+
+
+
+
+
+    @endsection
+
+*****************************shopping-cart.blade.php*************************
+
+@extends('frontend.layouts.master')
+@section('frontend-title')
+    Cart Page
+@endsection
+@section('frontend-content')
+    @include('frontend.layouts.inc.breadcumb', ['pagename' => 'Cart'])
+
+    {{-- cart-arta-start --}}
+    <div class="cart-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <form action="http://themepresss.com/tf/html/tohoney/cart">
+                        <table class="table-responsive cart-wrap">
+                            <thead>
+                                <tr>
+                                    <th class="images">Image</th>
+                                    <th class="product">Product</th>
+                                    <th class="ptice">Price</th>
+                                    <th class="quantity">Quantity</th>
+                                    <th class="total">Total</th>
+                                    <th class="remove">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($carts as $cartitem)
+                                    <tr>
+                                        <td class="images"><img
+                                                src="{{ asset('uploads/product') }}/{{ $cartitem->options->product_image }}"
+                                                alt=""></td>
+                                        <td class="product"><a href="single-product.html">{{ $cartitem->name }}</a>
+                                        </td>
+                                        <td class="ptice">${{ $cartitem->price }}</td>
+                                        <td class="quantity cart-plus-minus">
+                                            <input type="text" value="{{ $cartitem->qty }}">
+                                            <div class="dec qtybutton">-</div>
+                                            <div class="inc qtybutton">+</div>
+                                        </td>
+                                        <td class="total">${{ $cartitem->price * $cartitem->qty }}</td>
+                                        <td class="remove"><i class="fa fa-times"></i></td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                        <div class="row mt-60">
+                            <div class="col-xl-4 col-lg-5 col-md-6 ">
+                                <div class="cartcupon-wrap">
+                                    <ul class="d-flex">
+                                        <li>
+                                            <button>Update Cart</button>
+                                        </li>
+                                        <li><a href="{{ route('shop.page') }}">Continue Shopping</a></li>
+                                    </ul>
+                                    <h3>Cupon</h3>
+                                    <p>Enter Your Cupon Code if You Have One</p>
+                                    <div class="cupon-wrap">
+                                        <input type="text" placeholder="Cupon Code">
+                                        <button>Apply Cupon</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 offset-xl-5 col-lg-4 offset-lg-3 col-md-6">
+                                <div class="cart-total text-right">
+                                    <h3>Cart Totals</h3>
+                                    <ul>
+                                        <li><span class="pull-left">Subtotal </span>${{ $total_price }}</li>
+                                        <li><span class="pull-left"> Total </span> ${{ $total_price }}</li>
+                                    </ul>
+                                    <a href="checkout.html">Proceed to Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- cart-arta-end --}}
+@endsection
+
+
+**********************web.blade.php*******************
+
+Route::prefix('')->group(function(){
+    Route::get('/', [HomeController::class,'home'])->name('home');
+    Route::get('/shop', [HomeController::class,'shopPage'])->name('shop.page');
+    Route::get('/single-product/{product_slug}', [HomeController::class,'productDetails'])->name('productdetails.page');
+    Route::get('/shopping-cart',[CartController::class,'cartPage'])->name('cart.page');
+    Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('add-to.cart');
+    // Route::get('/add-to-cart/{product_slug}',[CartController::class,'addToCart'])->name('add-to.cart');
+});
+
+*************************Cupon Crud***************************
+php artisan make:controller CuponController -r
+
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Cupon extends Model
+{
+    use HasFactory;
+    protected $guarded = ['id'];
+}
+
+
+
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('cupons', function (Blueprint $table) {
+            $table->id();
+            $table->string('coupon_name')->unique();
+            $table->unsignedSmallInteger('discount_amount')->default(0);
+            $table->unsignedBigInteger('minimum_purchase_amount')->default(0);
+            $table->date('validity_till');
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('cupons');
+    }
+};
+
+
+
+Route::prefix('admin/')->group(function(){
+    Route::get('login',[LoginController::class, 'loginPage'])->name('admin.loginpage');
+    Route::post('login',[LoginController::class, 'login'])->name('admin.login');
+    Route::get('logout',[LoginController::class, 'logout'])->name('admin.logout');
+
+    Route::middleware(['auth'])->group(function(){
+        Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+    });
+    //  Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+
+
+    //======Resource Controller======
+    Route::resource('category', CategoryController::class);
+    Route::resource('testimonial', TestimonialController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('cupon', CuponController::class);
+
+});

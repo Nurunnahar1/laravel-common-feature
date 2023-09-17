@@ -24,3 +24,12 @@
  <script src="{{ asset('assets/frontend') }}/js/jquery-ui.min.js"></script>
  <!-- main js -->
  <script src="{{ asset('assets/frontend') }}/js/scripts.js"></script>
+ //toastr
+
+ <script src="{{ asset('http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js') }}"></script>
+ {!! Toastr::message() !!}
+
+     {{-- page specific script start--}}
+     @stack('admin_script')
+
+     {{-- page specific script end--}}

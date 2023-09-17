@@ -23,7 +23,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($carts as $cartitem)
+                                @foreach ($carts as $cartitem )
                                     <tr>
                                         <td class="images"><img
                                                 src="{{ asset('uploads/product') }}/{{ $cartitem->options->product_image }}"
@@ -37,7 +37,19 @@
                                             <div class="inc qtybutton">+</div>
                                         </td>
                                         <td class="total">${{ $cartitem->price * $cartitem->qty }}</td>
-                                        <td class="remove"><i class="fa fa-times"></i></td>
+                                        <td class="remove">
+
+                                            {{-- <a href="{{ route('removefrom.cart', ['cart_id' => $cartitem->rowID]) }}">
+                                                <i class="fa fa-times"></i>
+                                            </a> --}}
+
+
+                                                <a href="#">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+
+
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -47,9 +59,9 @@
                             <div class="col-xl-4 col-lg-5 col-md-6 ">
                                 <div class="cartcupon-wrap">
                                     <ul class="d-flex">
-                                        <li>
+                                        {{-- <li>
                                             <button>Update Cart</button>
-                                        </li>
+                                        </li> --}}
                                         <li><a href="{{ route('shop.page') }}">Continue Shopping</a></li>
                                     </ul>
                                     <h3>Cupon</h3>
