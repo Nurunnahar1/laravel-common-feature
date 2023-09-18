@@ -14,14 +14,15 @@
                         <li>
                             <a href="javascript:void(0);"><i class="fa fa-user"></i> My Account <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown_style">
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Register</a></li>
+                                <li><a href="{{ route('login.page') }}">Login</a></li>
+                                <li><a href="{{ route('register.page') }}">Register</a></li>
                                 <li><a href="{{ route('cart.page') }}">Cart</a></li>
                                 <li><a href="checkout.html">Checkout</a></li>
                                 <li><a href="wishlist.html">wishlist</a></li>
+                                <li><a href="{{ route('customer.logout') }}">Logout</a></li>
                             </ul>
                         </li>
-                        <li><a href="register.html"> Login/Register </a></li>
+                        <li><a href="{{ route('register.page') }}"> Login/Register </a></li>
                         <li>
                             <a href="javascript:void(0);"> USD <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown_style right">
@@ -66,6 +67,7 @@
                                     <li><a href="{{ route('cart.page') }}">Shopping cart</a></li>
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
+
                                 </ul>
                             </li>
                             <li>
@@ -142,9 +144,9 @@
                                             <p>${{ $item->qty*$item->price }}</p>
 
 
-                                            {{-- <a href="{{ route('removefrom.cart', ['cart_id' => $item->rowID]) }}">
+                                            <a href="{{ route('removefrom.cart', ['cart_id' => $item->rowId]) }}">
                                                 <i class="fa fa-times"></i>
-                                            </a> --}}
+                                            </a>
 
 
                                         </div>

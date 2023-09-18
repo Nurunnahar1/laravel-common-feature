@@ -23,7 +23,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- <pre>
+                                @php
+
+                                    print_r($carts)
+
+                                @endphp
+                                </pre> --}}
                                 @foreach ($carts as $cartitem )
+
                                     <tr>
                                         <td class="images"><img
                                                 src="{{ asset('uploads/product') }}/{{ $cartitem->options->product_image }}"
@@ -39,14 +47,20 @@
                                         <td class="total">${{ $cartitem->price * $cartitem->qty }}</td>
                                         <td class="remove">
 
-                                            {{-- <a href="{{ route('removefrom.cart', ['cart_id' => $cartitem->rowID]) }}">
+                                            <a href="{{ route('removefrom.cart', ['cart_id' => $cartitem->rowId]) }}">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+
+                                            {{-- <a href="{{ route('removefrom.cart',  $cartitem->rowId) }}">
+                                                <i class="fa fa-times"></i>
+                                            </a> --}}
+
+                                            {{-- <a href="{{ url('/remove-from-cart/'. $cartitem->rowId) }}">
                                                 <i class="fa fa-times"></i>
                                             </a> --}}
 
 
-                                                <a href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
+
 
 
                                         </td>

@@ -42,10 +42,11 @@ class CartController extends Controller
     }
 
     function removeFromCart($cart_id){
-        dd($cart_id);
+        // // dd($cart_id);
         Cart::remove($cart_id);
         Toastr::info('Product removed from cart successfully');
         return back();
+        // return $cart_id;
     }
 
 }
