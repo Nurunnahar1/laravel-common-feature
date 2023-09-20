@@ -31,7 +31,7 @@ class RegisterController extends Controller
         //login attempt if success then redirect home
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->route('');
+            return redirect()->route('login.page');
         }
     }
 
@@ -53,7 +53,7 @@ class RegisterController extends Controller
 
         if(Auth::attempt($credentials,$request->filled('remember'))){
             $request->session()->regenerate();
-            return redirect()->route('admin.dashboard');  //return redirect()->intended('admin/dashboard');  same
+            return redirect()->route('customer.dashboard');  //return redirect()->intended('customer/dashboard');  same
         }
 
         return back()->withErrors([
@@ -65,7 +65,7 @@ class RegisterController extends Controller
     function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
         return redirect()->route('login.page');
     }
 

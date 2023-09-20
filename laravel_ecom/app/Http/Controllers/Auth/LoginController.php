@@ -23,7 +23,7 @@ class LoginController extends Controller
 
         if(Auth::attempt($credentials,$request->filled('remember'))){
             $request->session()->regenerate();
-            return redirect()->intended('admin.dashboard');
+            return redirect()->intended('admin/dashboard');
         }
         return back()->withErrors([
             'email'=>'wrong password or email'
@@ -34,5 +34,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         return redirect()->route('admin.login');
+        // return redirect()->intended('admin/login');
     }
 }
