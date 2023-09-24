@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\CuponController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Frontend\CartController;
@@ -37,8 +38,15 @@ Route::prefix('')->group(function(){
     Route::prefix('customer/')->middleware(['auth','is_customer'])->group(function(){
         Route::get('dashboard',[CustomerController::class,'dashboard'])->name('customer.dashboard');
         Route::get('logout',[RegisterController::class,'logout'])->name('customer.logout');
-        Route::post('cart/apply-coupon',[CartController::class,'couponApply'])->name('customer.couponapply');
-        Route::get('cart/remove-coupon/{coupon_name}',[CartController::class,'removeCupon'])->name('customer.cuponremove');
+
+      /*Coupon apply & remove */
+      Route::get('cart/apply-coupon', [CartController::class, 'couponApply'])->name('customer.couponapply');
+      Route::get('cart/remove-coupon/{coupon_name}', [CartController::class, 'removeCoupon'])->name('customer.couponremove');
+
+      /*Checkout page */
+      Route::get('checkout', [CheckoutController::class, 'checkoutPage'])->name('customer.checkoutPage');
+      Route::get('placeorder', [CheckoutController::class, 'placeorder'])->name('customer.placeorder');
+
 
     });
 });
