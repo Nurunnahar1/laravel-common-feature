@@ -30,6 +30,6 @@
  {!! Toastr::message() !!}
 
      {{-- page specific script start--}}
-     @stack('admin_script')
+     @stack('frontend_script')
 
      {{-- page specific script end--}}

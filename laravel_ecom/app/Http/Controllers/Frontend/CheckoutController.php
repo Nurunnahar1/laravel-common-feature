@@ -20,7 +20,7 @@ class CheckoutController extends Controller
     }
 
     function loadUpazillaAjax($district_id){
-        $upazilas = Upazila::where('district_id', $district_id)->select('id','district_id','name')->get();
+        $upazilas = Upazila::where('district_id', $district_id)->select('id','name')->get();
         return response()->json($upazilas,200);
     }
 

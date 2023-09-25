@@ -25,3 +25,4 @@
 
 //toastr
 <link rel="stylesheet" href="{{ asset('http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css') }}">
+@stack('frontend_style')

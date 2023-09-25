@@ -1,5 +1,10 @@
 @extends('frontend.layouts.master')
 @section('frontend-title') Customer Dashboard Page @endsection
+
+@push('frontend_style')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
 @section('frontend-content')
     @include('frontend.layouts.inc.breadcumb', ['pagename' => 'Customer Dashboard'])
     <div class="checkout-area ptb-100">
@@ -96,3 +101,33 @@
         </div>
     </div>
     @endsection
+
+    @push('frontend_script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+            $('#district_id').on('change',function() {
+                var district_id = $(this).val();
+                // console.log()
+                if(district_id){
+                    $.ajax({
+                        url:"{{ url('/upzilla/ajax') }}/" + district_id,
+                        type:"GET",
+                        dataType:"json",
+                        success: function(data){
+                            console.log(data);
+                            var d =$('#upazila_id').empty();
+                            $each(data, function(key, value){
+                                $('#upazila_id').append('<option value="' + value.id + '">' + value.name + '</option>');
+                            }
+                        },
+                    });
+                }
+            });
+        });
+    </script>
+    @endpush
+
+

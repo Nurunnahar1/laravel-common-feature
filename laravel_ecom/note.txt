@@ -1060,3 +1060,22 @@ Route::prefix('admin/')->group(function(){
     Route::resource('cupon', CuponController::class);
 
 });
+
+
+
+
+
+
+*************************For search***************************
+
+
+google->select2
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+https://select2.org/getting-started/basic-usage  ->     <select id="district_id" name="district_id" class="form-select js-example-basic-single">
+                                            <option value="0">Select a district</option>
+                                            @foreach ($districts as $district)
+                                            <option value="{{ $district->id }}">{{ $district->name }}</option>
+                                            @endforeach
+                                        </select>
+(js-example-basic-single)

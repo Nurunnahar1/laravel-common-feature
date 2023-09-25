@@ -23,4 +23,7 @@
      <script src="{{ asset('http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js') }}"></script>
      {!! Toastr::message() !!}
 
+   {{-- page specific script start--}}
+   @stack('admin_script')
 
+   {{-- page specific script end--}}

@@ -35,17 +35,22 @@ Route::prefix('')->group(function(){
     Route::post('/login',[RegisterController::class,'loginStore'])->name('login.store');
 
 
+    /* AJAX CALL  */
+    Route::get('/upzilla/ajax/{district_id}', [CheckoutController::class, 'loadUpazillaAjax'])->name('loadupazila.ajax');
+
     Route::prefix('customer/')->middleware(['auth','is_customer'])->group(function(){
         Route::get('dashboard',[CustomerController::class,'dashboard'])->name('customer.dashboard');
         Route::get('logout',[RegisterController::class,'logout'])->name('customer.logout');
 
-      /*Coupon apply & remove */
-      Route::get('cart/apply-coupon', [CartController::class, 'couponApply'])->name('customer.couponapply');
-      Route::get('cart/remove-coupon/{coupon_name}', [CartController::class, 'removeCoupon'])->name('customer.couponremove');
+        /*Coupon apply & remove */
+        Route::get('cart/apply-coupon', [CartController::class, 'couponApply'])->name('customer.couponapply');
+        Route::get('cart/remove-coupon/{coupon_name}', [CartController::class, 'removeCoupon'])->name('customer.couponremove');
 
-      /*Checkout page */
-      Route::get('checkout', [CheckoutController::class, 'checkoutPage'])->name('customer.checkoutPage');
-      Route::get('placeorder', [CheckoutController::class, 'placeorder'])->name('customer.placeorder');
+        /*Checkout page */
+        Route::get('checkout', [CheckoutController::class, 'checkoutPage'])->name('customer.checkoutPage');
+        Route::post('placeorder', [CheckoutController::class, 'placeorder'])->name('customer.placeorder');
+
+
 
 
     });
