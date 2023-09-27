@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\Backend\CuponController;
-use App\Http\Controllers\Frontend\CheckoutController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Backend\CuponController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\CustomerController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Frontend\Auth\RegisterController;
-use App\Http\Controllers\Frontend\CustomerController;
 
 // Route::get('/', function () {
 //     return view('frontend.pages.home');
@@ -51,6 +52,13 @@ Route::prefix('')->group(function(){
         Route::post('placeorder', [CheckoutController::class, 'placeorder'])->name('customer.placeorder');
 
 
+
+        Route::get('email', function(){
+            $order = Order::whereId(1)->with(['billing', 'orderdetails'])->get();
+            return view('frontend.mail.purchaseconfirm', [
+                'order_details' => $order
+            ]);
+        });
 
 
     });
