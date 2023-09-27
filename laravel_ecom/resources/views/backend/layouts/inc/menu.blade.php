@@ -69,7 +69,7 @@
             </a>
             <ul id="orders">
               <li>
-                <a href="Orders.List.html">
+                <a href="{{ route('admin.orderlist') }}">
                   <span class="label">List</span>
                 </a>
               </li>
@@ -87,7 +87,7 @@
             </a>
             <ul id="customers">
               <li>
-                <a href="Customers.List.html">
+                <a href="{{ route('admin.customerlist') }}">
                   <span class="label">List</span>
                 </a>
               </li>
@@ -153,7 +153,7 @@
               <span class="label">Coupon Discount</span>
             </a>
           </li>
-         
+
           <li>
             <a href="Settings.html">
               <i data-cs-icon="gear" class="icon" data-cs-size="18"></i>
